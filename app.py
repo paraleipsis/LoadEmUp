@@ -23,7 +23,7 @@ class MainApp(QMainWindow, ui):
         pass
 
     def buttons_handler(self):
-        # handle buttons in app
+        # register buttons in app
         self.pushButton.clicked.connect(self.download) # connect download button in ui w/ download method
         self.pushButton_2.clicked.connect(self.browser_handler)
 
@@ -33,7 +33,7 @@ class MainApp(QMainWindow, ui):
 
         if total_size > 0:
             download_percentage = readed_data * 100 / total_size
-            self.progressBar.setValue(download_percentage)
+            self.progressBar.setValue(int(download_percentage))
             QApplication.processEvents()
 
     def browser_handler(self):
@@ -47,12 +47,25 @@ class MainApp(QMainWindow, ui):
 
     def download(self):
         # download file
-        print('Starting Download...')
-
         download_url = self.lineEdit.text()
         save_location = self.lineEdit_2.text()
 
-        urllib.request.urlretrieve(download_url, save_location, self.progress_handler)
+        # input data validation
+        if download_url == '' or save_location == '':
+            QMessageBox.warning(self, 'Error', 'Enter fields should not be empty')
+        else:
+            try:
+                urllib.request.urlretrieve(download_url, save_location, self.progress_handler)
+            except Exception:
+                QMessageBox.warning(self, 'Download Error', 'Enter a valid URL or save location')
+                return
+
+        QMessageBox.information(self, 'Download Completed', 'Download Completed Successfully')
+
+        # clear fields and progress bar after downloading
+        self.lineEdit.setText('')
+        self.lineEdit_2.setText('')
+        self.progressBar.setValue(0)
 
 
 def main():
