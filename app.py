@@ -1,3 +1,4 @@
+import pafy
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -6,6 +7,8 @@ from PyQt5.uic import loadUiType
 import sys
 import os
 import urllib.request
+import pafy
+import humanize
 
 ui, _ = loadUiType('main.ui')
 
@@ -24,9 +27,14 @@ class MainApp(QMainWindow, ui):
 
     def buttons_handler(self):
         # register buttons in app
+        # download files
         self.pushButton.clicked.connect(self.download) # connect download button in ui w/ download method
         self.pushButton_2.clicked.connect(self.browser_handler)
 
+        # download single yt video
+        self.pushButton_5.clicked.connect(self.get_video_data)
+
+    # methods for downloading files by direct link
     def progress_handler(self, block_num, block_size, total_size):
         # progress bar
         readed_data = block_num * block_size
@@ -46,7 +54,7 @@ class MainApp(QMainWindow, ui):
         pass
 
     def download(self):
-        # download file
+        # download file by direct link
         download_url = self.lineEdit.text()
         save_location = self.lineEdit_2.text()
 
@@ -66,6 +74,27 @@ class MainApp(QMainWindow, ui):
         self.lineEdit.setText('')
         self.lineEdit_2.setText('')
         self.progressBar.setValue(0)
+
+    # methods for downloading youtube single video
+    def get_video_data(self):
+        # information about video (quality, size, ...) in order to select a specific quality
+        video_url = self.lineEdit_3.text()
+
+        if video_url == '':
+            QMessageBox.warning(self, 'Error', 'Enter fields should not be empty')
+        else:
+            video = pafy.new(video_url)
+            video_stream = video.videostreams
+            for stream in video_stream:
+                size = humanize.naturalsize(stream.get_filesize()) # size in readable view
+                data = f'{stream.mediatype} {stream.extension} {stream.quality} {size}'
+                self.comboBox.addItem(data)
+
+    def download_video(self):
+        pass
+
+    def download_progress(self):
+        pass
 
 
 def main():
