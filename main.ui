@@ -151,7 +151,7 @@
        </rect>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -446,6 +446,26 @@
           <height>22</height>
          </rect>
         </property>
+        <item>
+         <property name="text">
+          <string>1080</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>720</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>480</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>360</string>
+         </property>
+        </item>
        </widget>
        <widget class="QPushButton" name="pushButton_7">
         <property name="geometry">
@@ -513,6 +533,14 @@
           <height>23</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>CaskaydiaCove Nerd Font Mono</family>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 0, 0);</string>
+        </property>
        </widget>
        <widget class="QLCDNumber" name="lcdNumber_2">
         <property name="geometry">
@@ -522,6 +550,27 @@
           <width>64</width>
           <height>23</height>
          </rect>
+        </property>
+        <property name="font">
+         <font>
+          <family>CaskaydiaCove Nerd Font Mono</family>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 0, 0);</string>
+        </property>
+       </widget>
+       <widget class="QLabel" name="label_6">
+        <property name="geometry">
+         <rect>
+          <x>30</x>
+          <y>245</y>
+          <width>131</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string/>
         </property>
        </widget>
       </widget>

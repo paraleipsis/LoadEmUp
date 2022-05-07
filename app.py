@@ -28,36 +28,40 @@ class MainApp(QMainWindow, ui):
     def buttons_handler(self) -> None:
         # register buttons in app
         # download files
-        self.pushButton.clicked.connect(self.download) # connect download button in ui w/ download method
-        self.pushButton_2.clicked.connect(self.browser_handler)
+        self.pushButton.clicked.connect(self.download_file) # connect download button in ui w/ download method
+        self.pushButton_2.clicked.connect(self.browser_handler_for_file)
 
         # download single yt video
         self.pushButton_5.clicked.connect(self.get_video_data)
-        self.pushButton_3.clicked.connect(self.save_browse)
-        self.pushButton_4.clicked.connect(self.download_video)
+        self.pushButton_3.clicked.connect(self.browser_handler_for_yt_video)
+        self.pushButton_4.clicked.connect(self.download_yt_video)
 
-    def progress_handler(self, block_num: int, block_size: int, total_size: int) -> None:
-        # progress bar
-        readed_data = block_num * block_size
-
-        if total_size > 0:
-            download_percentage = readed_data * 100 / total_size
-            self.progressBar.setValue(int(download_percentage))
-            QApplication.processEvents()
+        # download yt playlist
+        self.pushButton_7.clicked.connect(self.download_yt_playlist)
+        self.pushButton_6.clicked.connect(self.browser_handler_for_yt_playlist)
 
     # --------------------------------------------
     # methods for downloading files by direct link
     # --------------------------------------------
-    def browser_handler(self) -> None:
+    def progress_handler_file(self, block_num: int, block_size: int, total_size: int) -> None:
+        # progress bar
+        readed_data = int(block_num * block_size)
+
+        if total_size > 0:
+            download_percentage = int(readed_data * 100 / total_size)
+            self.progressBar.setValue(int(download_percentage))
+            QApplication.processEvents()
+
+    def browser_handler_for_file(self) -> None:
         # os file system browse to choose save location (by pic)
         save_location = QFileDialog.getSaveFileName(self, caption="Save as", directory=".", filter="All Files(*.*)")
         self.lineEdit_2.setText(str(save_location[0]))
 
-    def save(self):
+    def save(self) -> None:
         # enter specific save location (by writing)
         pass
 
-    def download(self) -> None:
+    def download_file(self) -> None:
         # download file by direct link
         download_url = self.lineEdit.text()
         save_location = self.lineEdit_2.text()
@@ -67,7 +71,7 @@ class MainApp(QMainWindow, ui):
             QMessageBox.warning(self, 'Error', 'Enter fields should not be empty')
         else:
             try:
-                urllib.request.urlretrieve(download_url, save_location, self.progress_handler)
+                urllib.request.urlretrieve(download_url, save_location, self.progress_handler_file)
             except Exception:
                 QMessageBox.warning(self, 'Download Error', 'Enter a valid URL or save location')
                 return None
@@ -82,12 +86,12 @@ class MainApp(QMainWindow, ui):
     # ---------------------------------------------
     # methods for downloading youtube single video
     # ---------------------------------------------
-    def save_browse(self):
+    def browser_handler_for_yt_video(self) -> None:
         # os file system browse to choose save location
         save_location = QFileDialog.getSaveFileName(self, caption="Save as", directory=".", filter="All Files(*.*)")
         self.lineEdit_4.setText(str(save_location[0]))
 
-    def get_video_data(self):
+    def get_video_data(self) -> None:
         # information about video (quality, size, ...) in order to select a specific quality
         video_url = self.lineEdit_3.text()
 
@@ -101,7 +105,7 @@ class MainApp(QMainWindow, ui):
                 data = f'{stream.mediatype} {stream.extension} {stream.quality} {size}'
                 self.comboBox.addItem(data)
 
-    def download_video(self):
+    def download_yt_video(self) -> None:
         video_url = self.lineEdit_3.text()
         save_location = self.lineEdit_4.text()
 
@@ -112,9 +116,9 @@ class MainApp(QMainWindow, ui):
             video = pafy.new(video_url)
             video_stream = video.videostreams
             video_quality = self.comboBox.currentIndex()
-            video_stream[video_quality].download(filepath=save_location, callback=self.download_progress)
+            video_stream[video_quality].download(filepath=save_location, callback=self.progress_handler_yt_video)
 
-    def download_progress(self, total: int, received: int, ratio: int, rate: int, time: int) -> None:
+    def progress_handler_yt_video(self, total: int, received: int, ratio: int, rate: int, time: int) -> None:
         read_data = received
         if total > 0:
             download_percentage = int(read_data * 100 / total)
@@ -123,6 +127,57 @@ class MainApp(QMainWindow, ui):
 
             self.label_5.setText(str(f'{remaining_time} minutes remaining'))
             QApplication.processEvents()
+
+    # ---------------------------------------------
+    # methods for downloading youtube playlist
+    # ---------------------------------------------
+    def download_yt_playlist(self) -> None:
+        playlist_url = self.lineEdit_5.text()
+        save_location = self.lineEdit_6.text()
+
+        if playlist_url == '' or save_location == '':
+            QMessageBox.warning(self, 'Error', 'Enter fields should not be empty')
+
+        else:
+            playlist = pafy.get_playlist2(playlist_url)
+            playlist_videos = playlist['items']
+
+            self.lcdNumber_2.display(len(playlist_videos))
+
+            os.chdir(save_location)
+            if os.path.exists(str(playlist['title'])):
+                os.chdir(str(playlist['title']))
+            else:
+                os.mkdir(str(playlist['title']))
+                os.chdir(str(playlist['title']))
+
+            current_video_in_download = 1
+            quality = self.comboBox_2.currentIndex()
+
+            QApplication.processEvents()
+
+            for video in playlist_videos:
+                current_video = video['pafy']
+                current_video_stream = current_video.videostreams
+                self.lcdNumber.display(current_video_in_download)
+                current_video_stream[quality].download(callback=self.progress_handler_yt_playlist)
+                QApplication.processEvents()
+
+                current_video_in_download += 1
+
+    def progress_handler_yt_playlist(self, total, received, ratio, rate, time) -> None:
+        read_data = received
+        if total > 0:
+            download_percentage = int(read_data * 100 / total)
+            self.progressBar_3.setValue(int(download_percentage))
+            remaining_time = int(round(time / 60, 2))
+
+            self.label_6.setText(str(f'{remaining_time} minutes remaining'))
+            QApplication.processEvents()
+
+    def browser_handler_for_yt_playlist(self):
+        save_location = QFileDialog.getExistingDirectory(self, 'Select Download Directory')
+        self.lineEdit_6.setText(save_location)
 
 
 def main():
