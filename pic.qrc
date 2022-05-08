@@ -8,5 +8,6 @@
         <file>icons\yt_icon.png</file>
         <file>icons\settings_icon.png</file>
         <file>icons\download_icon.png</file>
+        <file>icons\yt_playlist_icon.png</file>
     </qresource>
 </RCC>

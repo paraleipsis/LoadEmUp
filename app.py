@@ -24,6 +24,12 @@ class MainApp(QMainWindow, ui):
     def init_ui(self):
         # contain all ui changes
         self.tabWidget.tabBar().setVisible(False)
+        if self.tabWidget.currentIndex() == 0:
+            for i in range(8, 12):
+                exec(f'self.pushButton_{i}.hide()')
+        else:
+            for i in range(8, 12):
+                exec(f'self.pushButton_{i}.show()')
 
     def buttons_handler(self) -> None:
         # register buttons in app
@@ -41,10 +47,10 @@ class MainApp(QMainWindow, ui):
         self.pushButton_6.clicked.connect(self.browser_handler_for_yt_playlist)
 
         # tab buttons
-        self.pushButton_8.clicked.connect(self.open_home_tab)
-        self.pushButton_9.clicked.connect(self.open_download_tab)
-        self.pushButton_10.clicked.connect(self.open_yt_tab)
-        self.pushButton_11.clicked.connect(self.open_settings_tab)
+        self.pushButton_8.clicked.connect(lambda checked: self.open_tab(0))
+        self.pushButton_9.clicked.connect(lambda checked: self.open_tab(1))
+        self.pushButton_10.clicked.connect(lambda checked: self.open_tab(2))
+        self.pushButton_11.clicked.connect(lambda checked: self.open_tab(3))
 
     # --------------------------------------------
     # methods for downloading files by direct link
@@ -188,17 +194,16 @@ class MainApp(QMainWindow, ui):
     # ---------------------------------------------
     # methods for UI changes
     # ---------------------------------------------
-    def open_home_tab(self):
-        self.tabWidget.setCurrentIndex(0)
-
-    def open_download_tab(self):
-        self.tabWidget.setCurrentIndex(1)
-
-    def open_yt_tab(self):
-        self.tabWidget.setCurrentIndex(2)
-
-    def open_settings_tab(self):
-        self.tabWidget.setCurrentIndex(3)
+    def open_tab(self, i: int):
+        # open tabs by clicking on sidebar menu buttons
+        self.tabWidget.setCurrentIndex(i)
+        # if home tab checked then other tabs in sidebar menu should hide
+        if self.tabWidget.currentIndex() == 0:
+            for i in range(8, 12):
+                exec(f'self.pushButton_{i}.hide()')
+        else:
+            for i in range(8, 12):
+                exec(f'self.pushButton_{i}.show()')
 
 
 def main():
