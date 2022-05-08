@@ -52,6 +52,13 @@ class MainApp(QMainWindow, ui):
         self.pushButton_10.clicked.connect(lambda checked: self.open_tab(2))
         self.pushButton_11.clicked.connect(lambda checked: self.open_tab(3))
 
+        # themes buttons
+        self.pushButton_12.clicked.connect(lambda checked: self.apply_theme('qdarkorange'))
+        self.pushButton_13.clicked.connect(lambda checked: self.apply_theme('qdark'))
+        self.pushButton_14.clicked.connect(lambda checked: self.apply_theme('qdarkblue'))
+        self.pushButton_15.clicked.connect(lambda checked: self.apply_theme('qdarkgray'))
+        self.pushButton_16.clicked.connect(lambda checked: self.apply_theme('default'))
+
     # --------------------------------------------
     # methods for downloading files by direct link
     # --------------------------------------------
@@ -84,11 +91,10 @@ class MainApp(QMainWindow, ui):
         else:
             try:
                 urllib.request.urlretrieve(download_url, save_location, self.progress_handler_file)
+                QMessageBox.information(self, 'Download Completed', 'Download Completed Successfully')
             except Exception:
                 QMessageBox.warning(self, 'Download Error', 'Enter a valid URL or save location')
                 return None
-
-        QMessageBox.information(self, 'Download Completed', 'Download Completed Successfully')
 
         # clear fields and progress bar after downloading
         self.lineEdit.setText('')
@@ -194,7 +200,7 @@ class MainApp(QMainWindow, ui):
     # ---------------------------------------------
     # methods for UI changes
     # ---------------------------------------------
-    def open_tab(self, i: int):
+    def open_tab(self, i: int) -> None:
         # open tabs by clicking on sidebar menu buttons
         self.tabWidget.setCurrentIndex(i)
         # if home tab checked then other tabs in sidebar menu should hide
@@ -204,6 +210,13 @@ class MainApp(QMainWindow, ui):
         else:
             for i in range(8, 12):
                 exec(f'self.pushButton_{i}.show()')
+
+    # ---------------------------------------------
+    # methods for UI themes
+    # ---------------------------------------------
+    def apply_theme(self, theme: str) -> None:
+        with open(f'themes/{theme}.css', 'r') as style:
+            self.setStyleSheet(style.read())
 
 
 def main():

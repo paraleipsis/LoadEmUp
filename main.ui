@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>967</width>
-    <height>516</height>
+    <width>946</width>
+    <height>488</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,8 +23,11 @@
       <height>481</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="tab_5">
      <attribute name="title">
@@ -38,6 +41,9 @@
         <width>340</width>
         <height>121</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
       </property>
       <property name="title">
        <string/>
@@ -95,6 +101,9 @@
         <height>121</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="title">
        <string/>
       </property>
@@ -151,9 +160,50 @@
         <height>121</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="title">
        <string/>
       </property>
+      <widget class="QLabel" name="label_14">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>30</y>
+         <width>230</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>CaskaydiaCove Nerd Font Mono</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Settings</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_15">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>30</y>
+         <width>61</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="pic.qrc">:/icons/settings_icon.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_4">
       <property name="geometry">
@@ -164,95 +214,50 @@
         <height>121</height>
        </rect>
       </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <property name="title">
        <string/>
       </property>
-     </widget>
-     <widget class="QLabel" name="label_12">
-      <property name="geometry">
-       <rect>
-        <x>150</x>
-        <y>260</y>
-        <width>230</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>CaskaydiaCove Nerd Font Mono</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Download YouTube Playlist</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_13">
-      <property name="geometry">
-       <rect>
-        <x>70</x>
-        <y>260</y>
-        <width>61</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>CaskaydiaCove Nerd Font Mono</family>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap resource="pic.qrc">:/icons/yt_playlist_icon.png</pixmap>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_14">
-      <property name="geometry">
-       <rect>
-        <x>540</x>
-        <y>260</y>
-        <width>230</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>CaskaydiaCove Nerd Font Mono</family>
-        <pointsize>10</pointsize>
-       </font>
-      </property>
-      <property name="text">
-       <string>Settings</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_15">
-      <property name="geometry">
-       <rect>
-        <x>460</x>
-        <y>260</y>
-        <width>61</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <property name="font">
-       <font>
-        <family>CaskaydiaCove Nerd Font Mono</family>
-       </font>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap resource="pic.qrc">:/icons/settings_icon.png</pixmap>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
+      <widget class="QLabel" name="label_12">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>30</y>
+         <width>230</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <family>CaskaydiaCove Nerd Font Mono</family>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>Download YouTube Playlist</string>
+       </property>
+      </widget>
+      <widget class="QLabel" name="label_13">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>30</y>
+         <width>61</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string/>
+       </property>
+       <property name="pixmap">
+        <pixmap resource="pic.qrc">:/icons/yt_playlist_icon.png</pixmap>
+       </property>
+       <property name="scaledContents">
+        <bool>true</bool>
+       </property>
+      </widget>
      </widget>
     </widget>
     <widget class="QWidget" name="tab">
@@ -375,8 +380,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>738</width>
-        <height>431</height>
+        <width>831</width>
+        <height>471</height>
        </rect>
       </property>
       <property name="font">
@@ -500,9 +505,9 @@
        <widget class="QLabel" name="label">
         <property name="geometry">
          <rect>
-          <x>300</x>
+          <x>290</x>
           <y>152</y>
-          <width>61</width>
+          <width>71</width>
           <height>31</height>
          </rect>
         </property>
@@ -658,7 +663,7 @@
          <rect>
           <x>122</x>
           <y>150</y>
-          <width>61</width>
+          <width>71</width>
           <height>20</height>
          </rect>
         </property>
@@ -675,30 +680,36 @@
        <widget class="QComboBox" name="comboBox_2">
         <property name="geometry">
          <rect>
-          <x>190</x>
+          <x>200</x>
           <y>150</y>
           <width>271</width>
           <height>22</height>
          </rect>
         </property>
+        <property name="font">
+         <font>
+          <family>CaskaydiaCove Nerd Font Mono</family>
+          <pointsize>10</pointsize>
+         </font>
+        </property>
         <item>
          <property name="text">
-          <string>1080</string>
+          <string>1080p</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>720</string>
+          <string>720p</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>480</string>
+          <string>480p</string>
          </property>
         </item>
         <item>
          <property name="text">
-          <string>360</string>
+          <string>360p</string>
          </property>
         </item>
        </widget>
@@ -820,9 +831,12 @@
        <rect>
         <x>10</x>
         <y>70</y>
-        <width>151</width>
+        <width>111</width>
         <height>101</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 170, 0);</string>
       </property>
       <property name="text">
        <string/>
@@ -831,11 +845,14 @@
      <widget class="QPushButton" name="pushButton_13">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>170</x>
         <y>70</y>
-        <width>151</width>
+        <width>111</width>
         <height>101</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(0, 0, 127);</string>
       </property>
       <property name="text">
        <string/>
@@ -844,11 +861,14 @@
      <widget class="QPushButton" name="pushButton_14">
       <property name="geometry">
        <rect>
-        <x>390</x>
+        <x>330</x>
         <y>70</y>
-        <width>151</width>
+        <width>111</width>
         <height>101</height>
        </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(0, 0, 0);</string>
       </property>
       <property name="text">
        <string/>
@@ -871,6 +891,38 @@
       </property>
       <property name="text">
        <string>Theme:</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_15">
+      <property name="geometry">
+       <rect>
+        <x>490</x>
+        <y>70</y>
+        <width>111</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(166, 166, 166);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_16">
+      <property name="geometry">
+       <rect>
+        <x>650</x>
+        <y>70</y>
+        <width>111</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(255, 255, 255);</string>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </widget>
@@ -973,7 +1025,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>967</width>
+     <width>946</width>
      <height>21</height>
     </rect>
    </property>
