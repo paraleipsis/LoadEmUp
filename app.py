@@ -24,12 +24,10 @@ class MainApp(QMainWindow, ui):
     def init_ui(self):
         # contain all ui changes
         self.tabWidget.tabBar().setVisible(False)
+        self.move_box()
         if self.tabWidget.currentIndex() == 0:
             for i in range(8, 12):
                 exec(f'self.pushButton_{i}.hide()')
-        else:
-            for i in range(8, 12):
-                exec(f'self.pushButton_{i}.show()')
 
     def buttons_handler(self) -> None:
         # register buttons in app
@@ -183,7 +181,7 @@ class MainApp(QMainWindow, ui):
 
                 current_video_in_download += 1
 
-    def progress_handler_yt_playlist(self, total, received, ratio, rate, time) -> None:
+    def progress_handler_yt_playlist(self, total: int, received: int, ratio: int, rate: int, time: int) -> None:
         read_data = received
         if total > 0:
             download_percentage = int(read_data * 100 / total)
@@ -217,6 +215,27 @@ class MainApp(QMainWindow, ui):
     def apply_theme(self, theme: str) -> None:
         with open(f'themes/{theme}.css', 'r') as style:
             self.setStyleSheet(style.read())
+
+    # --------------------------------------------
+    # methods for app animation
+    # --------------------------------------------
+    def move_box(self):
+        # don't know what to say about this cursed piece of code ...
+        v = {
+            'a': (0, 50, 50, 340, 121),
+            'b': (1, 440, 50, 340, 121),
+            'c': (2, 50, 230, 340, 121),
+            'd': (3, 440, 230, 340, 121)
+        }
+
+        for key, value in v.items():
+            globals()[key] = QPropertyAnimation(eval(f'self.groupBox_{value[0]}'), b"geometry")
+            self.box_animation = globals()[key]
+            globals()[key].setDuration(500)
+            globals()[key].setStartValue(QRect(0, 0, 0, 0))
+            _, x, y, w, h = value
+            globals()[key].setEndValue(QRect(x, y, w, h))
+            globals()[key].start()
 
 
 def main():
