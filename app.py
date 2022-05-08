@@ -23,7 +23,7 @@ class MainApp(QMainWindow, ui):
 
     def init_ui(self):
         # contain all ui changes
-        pass
+        self.tabWidget.tabBar().setVisible(False)
 
     def buttons_handler(self) -> None:
         # register buttons in app
@@ -39,6 +39,12 @@ class MainApp(QMainWindow, ui):
         # download yt playlist
         self.pushButton_7.clicked.connect(self.download_yt_playlist)
         self.pushButton_6.clicked.connect(self.browser_handler_for_yt_playlist)
+
+        # tab buttons
+        self.pushButton_8.clicked.connect(self.open_home_tab)
+        self.pushButton_9.clicked.connect(self.open_download_tab)
+        self.pushButton_10.clicked.connect(self.open_yt_tab)
+        self.pushButton_11.clicked.connect(self.open_settings_tab)
 
     # --------------------------------------------
     # methods for downloading files by direct link
@@ -178,6 +184,21 @@ class MainApp(QMainWindow, ui):
     def browser_handler_for_yt_playlist(self):
         save_location = QFileDialog.getExistingDirectory(self, 'Select Download Directory')
         self.lineEdit_6.setText(save_location)
+
+    # ---------------------------------------------
+    # methods for UI changes
+    # ---------------------------------------------
+    def open_home_tab(self):
+        self.tabWidget.setCurrentIndex(0)
+
+    def open_download_tab(self):
+        self.tabWidget.setCurrentIndex(1)
+
+    def open_yt_tab(self):
+        self.tabWidget.setCurrentIndex(2)
+
+    def open_settings_tab(self):
+        self.tabWidget.setCurrentIndex(3)
 
 
 def main():
