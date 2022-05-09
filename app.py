@@ -10,10 +10,15 @@ import urllib.request
 import pafy
 import humanize
 
+
 ui, _ = loadUiType('main.ui')
 
 
 class MainApp(QMainWindow, ui):
+    # variable index buffer for move_box method
+    # this index is added for self.box_animation variable in each loop iteration
+    box_animation: list
+
     def __init__(self, parent=None):
         super(MainApp, self).__init__(parent)
         QMainWindow.__init__(self)
@@ -220,22 +225,21 @@ class MainApp(QMainWindow, ui):
     # methods for app animation
     # --------------------------------------------
     def move_box(self):
-        # don't know what to say about this cursed piece of code ...
-        v = {
-            'a': (0, 50, 50, 340, 121),
-            'b': (1, 440, 50, 340, 121),
-            'c': (2, 50, 230, 340, 121),
-            'd': (3, 440, 230, 340, 121)
-        }
+        value = [
+            (50, 50, 340, 121),
+            (440, 50, 340, 121),
+            (50, 230, 340, 121),
+            (440, 230, 340, 121)
+        ]
+        self.box_animation = [int(i) for i in range(len(value))]
 
-        for key, value in v.items():
-            globals()[key] = QPropertyAnimation(eval(f'self.groupBox_{value[0]}'), b"geometry")
-            self.box_animation = globals()[key]
-            globals()[key].setDuration(500)
-            globals()[key].setStartValue(QRect(0, 0, 0, 0))
-            _, x, y, w, h = value
-            globals()[key].setEndValue(QRect(x, y, w, h))
-            globals()[key].start()
+        for i in range(4):
+            x, y, w, h = value[i]
+            self.box_animation[i] = QPropertyAnimation(eval(f'self.groupBox_{i}'), b"geometry")
+            self.box_animation[i].setDuration(500)
+            self.box_animation[i].setStartValue(QRect(0, 0, 0, 0))
+            self.box_animation[i].setEndValue(QRect(x, y, w, h))
+            self.box_animation[i].start()
 
 
 def main():
