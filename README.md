@@ -1,2 +1,2 @@
 # LoadEmUp
-Simple download manager with GUI
+Менеджер загрузок на PyQt5
